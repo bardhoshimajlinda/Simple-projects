@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hintDisplay = document.querySelector('.hint-text');
 
   startNewGame();
-  updateDisplay(); // Call updateDisplay() initially to show underscores
+  updateDisplay();
 
   document.querySelector('.guess-form').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -95,4 +95,5 @@ document.addEventListener('DOMContentLoaded', () => {
   playAgainButton.classList.remove('hide');
   document.querySelector('.guess-form').classList.add('hide');
 }
+
 });
