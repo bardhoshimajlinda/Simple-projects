@@ -1,6 +1,9 @@
 const notesContainer = document.querySelector(".notes-container");
 const createBtn = document.querySelector(".btn");
 let notes = document.querySelectorAll(".input-box");
+const confirmationModal = document.getElementById("confirmationModal");
+const confirmDeleteBtn = document.getElementById("confirmDelete");
+const cancelDeleteBtn = document.getElementById("cancelDelete");
 
 function showNotes() {
     notesContainer.innerHTML = localStorage.getItem("notes");
@@ -40,26 +43,33 @@ createBtn.addEventListener("click", () => {
     notesContainer.appendChild(inputBox).appendChild(dateTimeSpan);
     notesContainer.lastChild.appendChild(document.createElement("br"));
     notesContainer.lastChild.appendChild(img);
-})
+});
 
 notesContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "IMG") {
-        e.target.parentElement.remove();
-        updateStorage();
+        confirmationModal.style.display = "flex";
+        confirmDeleteBtn.onclick = function() {
+            e.target.parentElement.remove();
+            updateStorage();
+            confirmationModal.style.display = "none";
+        };
+        cancelDeleteBtn.onclick = function() {
+            confirmationModal.style.display = "none";
+        };
     }
     else if(e.target.tagName === "P") {
-        notes = document.querySelectorAll(".input-box");
-        notes.forEach(nt => {
+          notes = document.querySelectorAll(".input-box");
+          notes.forEach(nt => {
             nt.onkeyup = function() {
-                updateStorage();
-            }
-        })
+                 updateStorage();
+             }
+         })
     }
-})
+});
 
 document.addEventListener("keydown", event => {
     if(event.key === "Enter"){
         document.execCommand("insertLineBreak");
         event.preventDefault();
     }
-})
+});
